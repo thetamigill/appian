@@ -1,4 +1,4 @@
-package com.endava.controller;
+package com.endava.appianpoc.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
