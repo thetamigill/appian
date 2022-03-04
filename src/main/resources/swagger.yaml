@@ -1,0 +1,91 @@
+swagger: '2.0'
+info:
+  description: 'This Swagger document contains information on how to create a customer account for a poc'
+  version: '1.0'
+  title: Account API
+basePath: /
+paths:
+  /account:
+    post:
+      tags:
+        - account-resource
+      summary: Creates a account
+      description: Validates user info and creates a new account
+      operationId: createAccount
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: accountRequest
+          description: Customer information to create the new account
+          required: true
+          schema:
+            $ref: '#/definitions/AccountRequest'
+      responses:
+        201:
+          description: OK
+          schema:
+            $ref: '#/definitions/AccountResponse'
+        400:
+          description: Bad/Malformed Request
+        422:
+          description: Invalid Request
+        500:
+          description: Internal Error
+          
+definitions:
+  AccountRequest:
+    type: object
+    description: Wrapper object comprised of customer info required for creating an account
+    properties:
+      accountInstruction:
+        $ref: '#/definitions/AccountInstruction'
+
+  AccountResponse:
+    type: object
+    description: Wrapper object comprised of account info and id
+    properties:
+      accountInstruction:
+        $ref: '#/definitions/AccountInstruction'
+      id:
+        type: string
+        description: ID of the account  in the database
+  AccountInstruction:
+    type: object
+    description: Information relevant to the customer information
+    properties:
+      firstName:
+        type: string
+        description: Customer first name
+      lastName:
+        type: string
+        description: Customer last name
+      dateOfBirth:
+        type: integer
+        format: int32
+        description: custoemr date of birth
+      email:
+        type: string
+        description: customerEmail
+      accountType:
+        type: string
+        description: account type
+        enum:
+          - SAVINGS
+          - CHECKINGS
+      address:
+        type: string
+        description: customerAddress
+      phoneNumber:
+        type: integer
+        format: int32
+        description: phone number of custoemr
+      username:
+        type: string
+        description: customer username
+      password:
+        type: string
+        description: customer password
+
